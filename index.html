@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Karo, quieres ser mi San Valentín? 💖</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 90%;
+            position: relative;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #d63384;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .yes {
+            background-color: #ff4081;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+        .yes:hover {
+            background-color: #e91e63;
+        }
+        .no {
+            background-color: #ccc;
+            color: black;
+            transition: transform 0.3s ease;
+        }
+        .no:hover {
+            background-color: #bdbdbd;
+        }
+        .heart {
+            font-size: 3em;
+            color: #e91e63;
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            animation: heartbeat 1s infinite;
+        }
+        .cat {
+            font-size: 4em;
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            animation: waiting 1.5s infinite alternate;
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        @keyframes waiting {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(10px); }
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¿Karo quieres ser mi San Valentín? 💕</h1>
+        
+        <!-- Lugar para insertar el GIF -->
+        <div class="gif-container">
+            <img id="catGif" src="gif.desan/00.gif" alt="GIF de gatito esperando" class="cat-gif" />
+        </div>
+
+        <div class="heart">❤️</div>
+        <div class="buttons">
+            <button class="yes" onclick="aceptar()">Sí 💖</button>
+            <button class="no" onclick="rechazar()">No 💔</button>
+        </div>
+    </div>
+
+    <script>
+        let yesButton = document.querySelector('.yes');
+        let noButton = document.querySelector('.no');
+        let noClicks = 0;  // Contador de cuántas veces se ha clickeado "No"
+
+        // Lista de GIFs que aparecerán al hacer clic en "No"
+        const gifs = [
+            'gif.desan/01.gif',  // Reemplaza con las rutas de tus GIFs
+            'gif.desan/02.gif',
+            'gif.desan/03.gif',
+            'gif.desan/04.gif',
+            'gif.desan/00.gif'
+        ];
+
+        // GIF que se muestra cuando se hace clic en "Sí"
+        const gifSi = 'gif.desan/fin.gif';  // Reemplaza con tu GIF preferido para "Sí"
+
+        function aceptar() {
+            alert('¡Sabía que dirías que sí! 💘 Te amo.');
+            document.body.style.backgroundColor = '#ff4081'; // Cambia el fondo a color rosa al aceptar
+            
+            // Cambia el GIF a uno predeterminado para "Sí"
+            document.getElementById('catGif').src = gifSi;
+        }
+
+        function rechazar() {
+            // Cada vez que se hace clic en "No", el botón "Sí" se hace más grande y "No" se hace más pequeño
+            noClicks++;
+            yesButton.style.transform = `scale(${1 + (0.1 * noClicks)})`;  // Hace que el "Sí" crezca
+            noButton.style.transform = `scale(${1 - (0.1 * noClicks)})`;   // Hace que el "No" se haga más pequeño
+
+            // Si el botón "No" se hace muy pequeño, lo desaparecemos
+            if (noClicks >= 5) {
+                noButton.style.display = 'none';
+            }
+
+            // Cambia el GIF por uno aleatorio de la lista
+            let randomGif = gifs[Math.floor(Math.random() * gifs.length)];
+            document.getElementById('catGif').src = randomGif;
+        }
+    </script>
+</body>
+</html>
